@@ -1,7 +1,6 @@
 import React from 'react'
-import Image from 'next/image'
 
-import HomeIcon from '../../public/img/home.png'
+import Navbar from '../components/navbar'
 
 const About = () => {
   return (
@@ -14,15 +13,7 @@ const About = () => {
         text-white
       "
     >
-      <nav className='w-full flex'>
-        <a href='/'>
-          <Image 
-            src={HomeIcon} 
-            alt="Website Icon Clipart - Website Home Logo @flaticon.com" 
-          />
-        </a>
-        <a className='pt-1.5 pl-2 text-black' href='/about'>About</a>
-      </nav>
+      <Navbar />
       <div className="justify-between content-center text-center text-white">
         <div className="text-6xl font-bold m-5">
           About
