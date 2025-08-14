@@ -1,7 +1,10 @@
 import Image, { StaticImageData } from 'next/image'
 import React from 'react'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import Link from 'next/link'
 
-import HomeIcon from '../../../public/img/home.png'
+import Navbar from '@/app/components/navbar';
 import Atlanta from '../../../public/img/Atlanta_Hawks_logo.svg.png';
 import Boston from '../../../public/img/Boston_Celtics.svg.png';
 import Brooklyn from '../../../public/img/Brooklyn_Nets_primary_icon_logo_2024.svg.png';
@@ -130,67 +133,91 @@ export default async function SeasonPage({ params }: Params) {
       className="
         bg-gradient-to-b 
         from-orange-500 via-pink-500 to-blue-500
-        h-screen w-full 
+        min-h-screen w-full 
         text-white
       "
     >
-      <nav className='w-full flex'>
-        <a href='/'>
-          <Image 
-            src={HomeIcon} 
-            alt="Website Icon Clipart - Website Home Logo @flaticon.com" 
-          />
-        </a>
-      </nav>
-      <div className='flex content-center justify-center items-center'>
-      <div className="text-center text-white">
-        <div className="text-6xl font-bold m-5"> For the {season} season, I think ... </div>
-        <div className='inline-block'>
-          <Image
-            src={logoMap[first.team]}
-            alt={first.team}
-            width={200}
-            height={200}
-          />
-        </div>
-        <div className="text-6xl font-bold m-5"> will win! </div>
-        <div className="text-xl font-bold m-5"> Teams also in the mix (in order of decreasing odds, left to right):</div>
-        <div>
-          <div className='inline-block px-4'>
+      <Navbar />
+      <div className='flex flex-col content-center justify-center items-center'>
+        <Menu as="div" className="relative inline-block text-left mt-10">
+            <div>
+              <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50">
+                Select Season:
+                <ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-gray-400" />
+              </MenuButton>
+            </div>
+
+            <MenuItems
+              transition
+              className="absolute right-0 z-10 mt-2 w-25 origin-top-right overflow-auto h-40 rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+            >
+              <div className="py-1">
+                {[
+                  '2016-17','2017-18','2018-19','2019-20',
+                  '2020-21','2021-22','2022-23','2023-24','2024-25'
+                ].map((season) => (
+                  <MenuItem 
+                    key={season}
+                    as={Link}
+                    href={`${season}`}
+                    className="block px-4 py-2 text-sm text-gray-700 ui-active:bg-gray-100 ui-active:text-gray-900"
+                  >
+                    {season}
+                  </MenuItem>
+                ))}
+              </div>
+            </MenuItems>
+          </Menu>
+        <div className="text-center text-white">
+          <div className="text-6xl font-bold m-5"> For the {season} season, I think ... </div>
+          <div className='inline-block'>
             <Image
-              src={logoMap[second.team]}
-              alt={second.team}
-              width={100}
-              height={100}
+              src={logoMap[first.team]}
+              alt={first.team}
+              width={200}
+              height={200}
             />
           </div>
-          <div className='inline-block px-4'>
-            <Image
-              src={logoMap[third.team]}
-              alt={third.team}
-              width={100}
-              height={100}
-            />
-          </div>
-          <div className='inline-block px-4'>
-            <Image
-              src={logoMap[fourth.team]}
-              alt={third.team}
-              width={100}
-              height={100}
-            />
-          </div>
-          <div className='inline-block px-4'>
-            <Image
-              src={logoMap[fifth.team]}
-              alt={third.team}
-              width={100}
-              height={100}
-            />
+          <div className="text-6xl font-bold m-5"> will win! </div>
+          <div className='pt-5'>
+            <div className="text-2xl font-bold m-5"> Teams also in the mix (in order of decreasing odds, left to right):</div>
+            <div>
+              <div className='inline-block px-4'>
+                <Image
+                  src={logoMap[second.team]}
+                  alt={second.team}
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <div className='inline-block px-4'>
+                <Image
+                  src={logoMap[third.team]}
+                  alt={third.team}
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <div className='inline-block px-4'>
+                <Image
+                  src={logoMap[fourth.team]}
+                  alt={third.team}
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <div className='inline-block px-4'>
+                <Image
+                  src={logoMap[fifth.team]}
+                  alt={third.team}
+                  width={100}
+                  height={100}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   )
 }

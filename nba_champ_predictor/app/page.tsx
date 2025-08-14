@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
+import Navbar from './components/navbar';
 import HomeIcon from '../public/img/home.png';
 import Atlanta from '../public/img/Atlanta_Hawks_logo.svg.png';
 import Boston from '../public/img/Boston_Celtics.svg.png';
@@ -89,78 +90,71 @@ export default function Home() {
        to-blue-500
        '
        >
-      <nav className='w-full flex'>
-        <a href='/'>
-          <Image 
-            src={HomeIcon} 
-            alt="Website Icon Clipart - Website Home Logo @flaticon.com" 
-          />
-        </a>
-      </nav>
+      <Navbar />
       <div
         className="
           h-screen content-center text-center text-white
         "
       >
-          <div className="text-6xl font-bold">
-            Hi, I'm (insert app name here).
+        <div className="text-6xl font-bold">
+          Hi, I'm NBAChampPredictor.
+        </div>
+
+        <div className="text-xl mt-10">
+          I am an AI trained on advanced NBA statistics spanning from the 1996 season.
+          Give me a season to predict and I'll tell you who I think won (or will win)!
+        </div>
+
+        {/* Season dropdown */}
+        <Menu as="div" className="relative inline-block text-left mt-10">
+          <div>
+            <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50">
+              Select Season:
+              <ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-gray-400" />
+            </MenuButton>
           </div>
 
-          <div className="text-xl mt-10 max-w-lg">
-            I am an AI trained on advanced NBA statistics spanning from the 1996 season.
-            Give me a season to predict and I'll tell you who I think won (or will win)!
-          </div>
-
-          {/* Season dropdown */}
-          <Menu as="div" className="relative inline-block text-left mt-10">
-            <div>
-              <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50">
-                Select Season:
-                <ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-gray-400" />
-              </MenuButton>
-            </div>
-
-            <MenuItems
-              transition
-              className="absolute right-0 z-10 mt-2 w-25 origin-top-right overflow-auto h-40 rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-            >
-              <div className="py-1">
-                {[
-                  '2016-17','2017-18','2018-19','2019-20',
-                  '2020-21','2021-22','2022-23','2023-24','2024-25'
-                ].map((season) => (
-                  <MenuItem 
-                    key={season}
-                    as={Link}
-                    href={`predictions/${season}`}
-                    className="block px-4 py-2 text-sm text-gray-700 ui-active:bg-gray-100 ui-active:text-gray-900"
-                  >
-                    {season}
-                  </MenuItem>
-                ))}
-              </div>
-            </MenuItems>
-          </Menu>
-
-          {/* Auto-scrolling logos */}
-          {/* Flickering occurs when the logos wrap around completely, must fix */}
-          <div className="overflow-hidden mt-10">
-            <div ref={trackRef}
-            className="flex flex-nowrap animate-infinite-scroll pause-on-hover">
-              {[...logos, ...logos].map((logo, i) => (
-                <Image
-                  key={i}
-                  src={logo.src}
-                  width={logo.width}
-                  height={60}
-                  className="flex-shrink-0 mx-1.5"
-                  alt=""
-                  aria-hidden={i >= logos.length}
-                />
+          <MenuItems
+            transition
+            className="absolute right-0 z-10 mt-2 w-25 origin-top-right overflow-auto h-40 rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+          >
+            <div className="py-1">
+              {[
+                '2016-17','2017-18','2018-19','2019-20',
+                '2020-21','2021-22','2022-23','2023-24','2024-25'
+              ].map((season) => (
+                <MenuItem 
+                  key={season}
+                  as={Link}
+                  href={`predictions/${season}`}
+                  className="block px-4 py-2 text-sm text-gray-700 ui-active:bg-gray-100 ui-active:text-gray-900"
+                >
+                  {season}
+                </MenuItem>
               ))}
             </div>
+          </MenuItems>
+        </Menu>
+
+        {/* Auto-scrolling logos */}
+        {/* Flickering occurs when the logos wrap around completely, must fix */}
+        <div className="overflow-hidden mt-10">
+          <div ref={trackRef}
+            className="flex flex-nowrap animate-infinite-scroll pause-on-hover">
+            {[...logos, ...logos].map((logo, i) => (
+              <Image
+                key={i}
+                src={logo.src}
+                width={logo.width}
+                height={60}
+                className="flex-shrink-0 mx-1.5"
+                alt=""
+                aria-hidden={i >= logos.length}
+              />
+            ))}
           </div>
         </div>
       </div>
+    </div>
   );
 }
