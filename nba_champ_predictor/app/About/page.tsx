@@ -13,7 +13,9 @@ const About = () => {
         text-white
       "
     >
-      <Navbar />
+      <div className='pl-1'>
+        <Navbar />
+      </div>
       <div className="justify-between content-center text-center text-white">
         <div className="text-6xl font-bold m-5">
           About

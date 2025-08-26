@@ -8,7 +8,6 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 import Navbar from './components/navbar';
-import HomeIcon from '../public/img/home.png';
 import Atlanta from '../public/img/Atlanta_Hawks_logo.svg.png';
 import Boston from '../public/img/Boston_Celtics.svg.png';
 import Brooklyn from '../public/img/Brooklyn_Nets_primary_icon_logo_2024.svg.png';
@@ -90,7 +89,7 @@ export default function Home() {
        to-blue-500
        '
        >
-      <Navbar />
+        <Navbar />
       <div
         className="
           h-screen content-center text-center text-white

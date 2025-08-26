@@ -3,7 +3,7 @@ import HomeIcon from '../../public/img/home.png';
 
 const Navbar =()=> {
     return (
-        <nav className='w-full flex'>
+        <nav className='w-full flex pl-2'>
             <a href='/'>
                 <Image 
                     src={HomeIcon} 
