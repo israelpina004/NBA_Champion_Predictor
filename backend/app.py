@@ -24,7 +24,7 @@ def finals_binary(result):
 
 @memory.cache
 def train_models_for_year(cutoff_year):
-    df = pd.read_csv('/Users/israelpina/Desktop/IntroToML/NBA_Champ_Model/Model/nba_adv_szn_stats.csv')
+    df = pd.read_csv('/Users/israelpina/Desktop/IntroToML/NBA_Champ_Model/backend/nba_adv_szn_stats.csv')
 
     rank_map = {
     'Champion': 6,
@@ -209,4 +209,5 @@ def preds(season):
     return jsonify(season_preds[season])
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=8080)
