@@ -1,8 +1,7 @@
 from flask import Flask, jsonify
+import os
 import pandas as pd
 from nba_api.stats.endpoints import leaguedashteamstats
-import joblib
-import json
 from joblib import Memory
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
@@ -210,4 +209,4 @@ def preds(season):
     return jsonify(season_preds[season])
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
