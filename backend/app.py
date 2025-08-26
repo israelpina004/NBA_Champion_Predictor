@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
-import os
 import pandas as pd
+import os
 from nba_api.stats.endpoints import leaguedashteamstats
 from joblib import Memory
 from sklearn.preprocessing import StandardScaler
@@ -24,7 +24,11 @@ def finals_binary(result):
 
 @memory.cache
 def train_models_for_year(cutoff_year):
-    df = pd.read_csv('/Users/israelpina/Desktop/IntroToML/NBA_Champ_Model/backend/nba_adv_szn_stats.csv')
+    
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    CSV_PATH = os.path.join(BASE_DIR, "nba_adv_szn_stats.csv")
+
+    df = pd.read_csv(CSV_PATH)
 
     rank_map = {
     'Champion': 6,
@@ -210,4 +214,6 @@ def preds(season):
 
 if __name__ == '__main__':
     from waitress import serve
-    serve(app, host="0.0.0.0", port=8080)
+    port = int(os.environ.get("PORT", 8080))
+    serve(app, host="0.0.0.0", port=port)
+
